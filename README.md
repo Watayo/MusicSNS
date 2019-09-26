@@ -1,1 +1,1 @@
-Life is Tech ! の教材で利用する `Sinatra` テンプレートです。
+'sinatra'  を使って実装しています
