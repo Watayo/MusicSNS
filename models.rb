@@ -6,5 +6,5 @@ if development?
 end
 
 class User < ActiveRecord::Base
-  has_many_password
+  has_secure_password
 end
