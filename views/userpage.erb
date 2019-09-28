@@ -1,0 +1,16 @@
+<h1><%= current_user.name %>の投稿</h1>
+  <div>
+  <% if !@postmusics.nil? %>
+    <% @postmusics.each do |postmusic| %>
+    <div>
+      <p><img src="<%= postmusic.img %>" alt="アルバム写真"></p>
+      <p><%= postmusic.artistName %></p>
+      <p><%= postmusic.collectionName %></p>
+      <p><%= postmusic.trackName %></p>
+      <p><a href="<%= postmusic.preView %>">サンプル</a></p>
+      <P><%= postmusic.comments %></p>
+    <% end %>
+    <% else %>
+      <p>投稿はありません</p>
+    <% end %>
+  </div>

@@ -7,4 +7,9 @@ end
 
 class User < ActiveRecord::Base
   has_secure_password
+  has_many :postmusics
+end
+
+class Postmusic < ActiveRecord::Base
+  belongs_to :user
 end

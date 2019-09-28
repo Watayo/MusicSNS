@@ -97,6 +97,24 @@ get '/signout' do
   #sessionのuserをnilにしてリダイレクト
 end
 
-get '/home' do
-  erb :home
+get '/userpage' do
+  if current_user.nil?
+    @postmusics = Postmusic.none
+  else
+    @postmusics = current_user.postmusics
+  end
+
+  erb :userpage
+end
+
+post '/new' do
+  current_user.postmusics.create(
+    img: params[:imageUrl],
+    artistName: params[:artist],
+    collectionName: params[:album],
+    trackName: params[:track],
+    preView: params[:sampleUrl],
+    comments: params[:comment]
+  )
+  redirect '/userpage'
 end
