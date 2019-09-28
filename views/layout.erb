@@ -9,11 +9,15 @@
 		<div>
 			<div>
 				<a href="/">MusicSNS</a>
+				<a href="/home">home</a>
+				<a href="/search">search</a>
+				<!--<a href="/signout">logout</a>-->
 			</div>
 			<ul>
       <% if !current_user.nil? %>
         <p>こんにちは、<%= current_user.name %>さん</p>
 				<p><img src="<%= current_user.img %>"></p>
+				<!--写真投稿されないときはなんか用意しておくif文で分岐-->
         <p><a href="/signout"> ログアウト</a></p>
       <% else %>
 				<li>新規ユーザーですか?</li>

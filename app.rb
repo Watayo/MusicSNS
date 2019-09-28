@@ -2,6 +2,8 @@ require 'bundler/setup'
 Bundler.require
 require 'sinatra/reloader' if development?
 require 'open-uri'
+require 'net/http'
+require 'json'
 require 'sinatra/json'
 require 'sinatra/activerecord'
 require 'dotenv'
@@ -28,7 +30,6 @@ end
 
 
 get '/' do
-
   erb :index
 end
 
@@ -57,7 +58,25 @@ post '/signup' do
   if user.persisted?
     session[:user] = user.id
   end
-  redirect '/'
+  redirect '/search'
+end
+
+get '/search' do
+  @musics = []
+  #binding.pry
+  erb :search
+end
+
+post '/search' do
+  keyword = params[:keyword]
+  uri = URI("https://itunes.apple.com/search")
+  uri.query = URI.encode_www_form({ term: keyword, country: "JP", media: "music", limit: 10 })
+  res = Net::HTTP.get_response(uri)
+  returned_json = JSON.parse(res.body)
+  @musics = returned_json["results"]
+  #@musics.present?
+  #binding.pry
+  erb :search
 end
 
 get '/signin' do
@@ -69,11 +88,15 @@ post '/signin' do
   if user && user.authenticate(params[:password])
     session[:user] = user.id
   end
-  redirect '/'
+  redirect '/search'
 end
 
 get '/signout' do
   session[:user] = nil
   redirect '/'
   #sessionのuserをnilにしてリダイレクト
+end
+
+get '/home' do
+  erb :home
 end
