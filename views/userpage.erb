@@ -8,7 +8,11 @@
       <p><%= postmusic.collectionName %></p>
       <p><%= postmusic.trackName %></p>
       <p><a href="<%= postmusic.preView %>">サンプル</a></p>
-      <P><%= postmusic.comments %></p>
+      <P><%= CGI.escapeHTML(postmusic.comments) %></p>
+      <form action="/postmusics/<%= postmusic.id %>/delete" method="post">
+        <input type="submit" value="削除">
+      </form>
+      <a href="/postmusics/<%= postmusic.id %>/edit">編集</a>
     <% end %>
     <% else %>
       <p>投稿はありません</p>

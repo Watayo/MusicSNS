@@ -22,6 +22,12 @@ before do
   end
 end
 
+before '/userpage' do
+  if current_user.nil?
+    redirect '/'
+  end
+end
+
 helpers do
   def current_user
     User.find_by(id: session[:user])
@@ -108,6 +114,7 @@ get '/userpage' do
 end
 
 post '/new' do
+  #ここで投稿したものを処理する
   current_user.postmusics.create(
     img: params[:imageUrl],
     artistName: params[:artist],
@@ -117,4 +124,31 @@ post '/new' do
     comments: params[:comment]
   )
   redirect '/userpage'
+end
+
+post '/postmusics/:id/delete' do
+  postmusic = Postmusic.find(params[:id])
+  postmusic.destroy
+  redirect '/userpage'
+end
+
+get '/postmusics/:id/edit' do
+  @postmusic = Postmusic.find(params[:id])
+  erb :edit
+end
+
+post '/postmusics/:id' do
+  postmusic = Postmusic.find(params[:id])
+  postmusic.comments = params[:comment]
+  postmusic.save
+  redirect '/userpage'
+end
+
+#時系列にみんなの乗せる
+get '/home' do
+  erb :home
+end
+
+post '/home' do
+
 end

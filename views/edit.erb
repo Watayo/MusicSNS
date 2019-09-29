@@ -1,0 +1,12 @@
+<div>
+  <form action="/postmusics/<%= @postmusic.id %>" method = "post">
+    <div>
+      <div>
+        <input type="text" name="comment" placeholder="コメント"　value="<%= CGI.escapeHTML(@postmusic.comments) %>">
+      </div>
+      <div>
+        <input type="submit" value="登録">
+      </div>
+    </div>
+  </form>
+</div>
