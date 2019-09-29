@@ -24,7 +24,7 @@ end
 
 before '/userpage' do
   if current_user.nil?
-    redirect '/'
+    redirect '/home'
   end
 end
 
@@ -36,7 +36,8 @@ end
 
 
 get '/' do
-  erb :index
+  @postedmusics = Postmusic.all.limit(10).order("updated_at desc")
+  erb :home
 end
 
 get '/signup' do
@@ -82,19 +83,16 @@ post '/search' do
   @musics = returned_json["results"]
   #@musics.present?
   #binding.pry
-  erb :search
+  erb :search #これ、redirectで返すと失敗する
 end
 
-get '/signin' do
-  erb :sign_in
-end
 
 post '/signin' do
   user = User.find_by(name: params[:name])
   if user && user.authenticate(params[:password])
     session[:user] = user.id
   end
-  redirect '/search'
+  redirect '/'
 end
 
 get '/signout' do
@@ -122,6 +120,7 @@ post '/new' do
     trackName: params[:track],
     preView: params[:sampleUrl],
     comments: params[:comment]
+    #ここにユーザーの名前を保存したい?
   )
   redirect '/userpage'
 end

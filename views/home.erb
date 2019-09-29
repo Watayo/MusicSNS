@@ -1,0 +1,12 @@
+<h1>最新の投稿</h1>
+  <div>
+    <% @postedmusics.each do |postedmusic| %>
+    <div>
+        <p><img src="<%= postedmusic.img %>" alt="アルバム写真"></p>
+        <p>アーティスト : <%= postedmusic.artistName %></p>
+
+        <P>コメント : <%= CGI.escapeHTML(postedmusic.comments) %></p>
+        <p>投稿者 : <%= postedmusic.user.name %></p>
+    </div>
+    <% end %>
+  </div>

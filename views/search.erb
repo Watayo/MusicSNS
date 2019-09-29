@@ -5,7 +5,7 @@
 </form>
 <h2>検索結果</h2>
 <div>
-  <% if !@musics.empty? %>
+  <% if !@musics.empty? %><!--empty苦戦したけど、@musicをむりやり[]で初期化したら上手く言った-->
     <div>
     <% @musics.each do |music| %>
       <div>
