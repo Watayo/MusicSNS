@@ -36,7 +36,7 @@ end
 
 
 get '/' do
-  @postedmusics = Postmusic.all.limit(10).order("updated_at desc")
+  @postedmusics = Postmusic.all.limit(10).order("created_at desc")
   erb :home
 end
 

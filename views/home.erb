@@ -1,7 +1,6 @@
 <h1>最新の投稿</h1>
-  <div>
     <% @postedmusics.each do |postedmusic| %>
-    <div>
+    <div class="post center-vertical">
         <p><img src="<%= postedmusic.img %>" alt="アルバム写真"></p>
         <p>アーティスト : <%= postedmusic.artistName %></p>
 
@@ -9,4 +8,3 @@
         <p>投稿者 : <%= postedmusic.user.name %></p>
     </div>
     <% end %>
-  </div>
